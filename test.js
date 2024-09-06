@@ -1,9 +1,59 @@
+function rec(base,ensemble){
 
-function findkey(head, table){
+
+
+        if (ensemble.size == 0){
+                return new Set()
+        }
+
+        let result = []
+        ensemble.forEach((element) => {
+                
+                newset = new Set([...base,element])
+                result.push(newset)
+                console.log("I",result)
+
+                newensemble = new Set(...ensemble)
+                newensemble.delete(element)
+                result.push.apply(rec(newset,newensemble))
+
+        })
+
+        return result
+}
+
+
+function GetSousEnsemble(base,ensemble){
+        console.log(base,ensemble)
+        if (ensemble.size == 0){
+                return new Set()
+        }
+
+        let result = []
+        ensemble.forEach((element) => {
+                
+                let newset = new Set([...base,element])
+                //console.log("newset", newset)
+                result.push(newset)
+                //console.log("I",result)
+
+                let newensemble = new Set(...ensemble)
+                console.log("newensemble",newensemble)
+                newensemble.delete(element)
+                result.push.apply(GetSousEnsemble(newset,newensemble))
+
+        })
+
+        return result
 
 }
 
-head1 = [A,B,C,D]
+function findkey(head, table){
+        return GetSousEnsemble(new Set(),new Set(head))
+
+}
+
+head1 = ["A","B","C","D"]
 table1 = [
         [1,2,3,4],
         [1,4,4,4],
@@ -11,7 +61,6 @@ table1 = [
         [7,5,4,9],
         ]
 
-findkey(head1,table2)
 
 /* R : A ==> D ;
        B ==> A ; B ==> C ; B ==> D ;
@@ -21,7 +70,7 @@ findkey(head1,table2)
 */
 
 
-head2 = [A,B,C]
+head2 = ["A","B","C"]
 table2 = [
         [1,2,3],
         [1,4,4],
@@ -36,3 +85,5 @@ table2 = [
        AC ==> B ;
        BC ==> A ;
 */
+
+console.log(findkey(head2,table2))
