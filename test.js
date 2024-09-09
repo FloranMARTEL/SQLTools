@@ -1,80 +1,24 @@
 
-function GetclePossible(base, ensemble) {
-        if (ensemble.size == 0) {
-                return new Set()
-        }
-
-        let clePossible = new Set()
-
-        for (const element of ensemble) {
-                let newset = new Set([...base, element])
-                clePossible.add(newset)
-
-                let newensemble = new Set([...ensemble])
-                newensemble.delete(element)
-                let re = GetclePossible(newset, newensemble)
-                clePossible = new Set([...clePossible, ...re])
-        }
-
-
-        return clePossible
+Set.prototype.equals = function(set) {
+        return this.size === set.size && [...this].every(val => set.has(val));
 }
 
-function setEqual(set1, set2) {
-        return set1.size === set2.size && [...set1].every(val => set2.has(val));
-}
-function issubset(set1, set2) {
-        return [...set2].every(val => set1.has(val));
+Set.prototype.issubsetof = function (set) {
+        return [...this].every(val => set.has(val));
 }
 
-function clearDoublonofSet(set) {
-        for (let index = 0; index < set.size; index++) {
-                const ensemble = [...set][index];
-                for (let index2 = index + 1; index2 < set.size; index2++) {
-                        const ensemble2 = [...set][index2];
-                        if (index != index2 && setEqual(ensemble, ensemble2)) {
-                                set.delete(ensemble2)
+Set.prototype.clearDoublonofSet = function () {
+        for (let index = 0; index < this.size; index++) {
+                const ensemble = [...this][index];
+                for (let index2 = index + 1; index2 < this.size; index2++) {
+                        const ensemble2 = [...this][index2];
+                        if (index != index2 && ensemble.equals(ensemble2)) {
+                                this.delete(ensemble2)
                         }
                 }
         }
-        return set
+        return this
 }
-
-// class HashSet {
-//         constructor() {
-//                 this.element = []
-//         }
-
-//         add(key, value) {
-//                 if (this.get(key) == null) {
-//                         this.element.push([key, value])
-//                         return true
-//                 }
-//                 return false
-//         }
-
-//         update(key, value) {
-//                 this.element.forEach((element) => {
-//                         if (element[0] == key) {
-//                                 element[1] = value
-//                                 return true
-//                         }
-//                 })
-//                 return false
-//         }
-
-//         get(key) {
-//                 console.log("aaa2", this.element)
-//                 for (const value of this.element) {
-//                         let val1 = value[0]
-//                         console.log("cc", val1 === key)
-//                         if (val1 == key) {
-//                                 return value[1]
-//                         }
-//                 }
-//                 return null
-//         }
-// }
 
 String.prototype.hexEncode = function () {
         var hex, i;
@@ -98,7 +42,26 @@ String.prototype.hexDecode = function () {
         return back;
 }
 
+function GetclePossible(base, ensemble) {
+        if (ensemble.size == 0) {
+                return new Set()
+        }
 
+        let clePossible = new Set()
+
+        for (const element of ensemble) {
+                let newset = new Set([...base, element])
+                clePossible.add(newset)
+
+                let newensemble = new Set([...ensemble])
+                newensemble.delete(element)
+                let re = GetclePossible(newset, newensemble)
+                clePossible = new Set([...clePossible, ...re])
+        }
+
+
+        return clePossible
+}
 
 function findkey(head, table) {
 
@@ -107,7 +70,7 @@ function findkey(head, table) {
 
         //clé posible
         let clePossible = GetclePossible(new Set(), new Set(head))
-        clePossible = clearDoublonofSet(clePossible)
+        clePossible = clePossible.clearDoublonofSet()
 
         clePossible = [...clePossible].sort((seta, setb) => seta.size - setb.size)
 
@@ -150,14 +113,12 @@ function findkey(head, table) {
                         allRelation.push({source : setKey,destination : head[indexkey]})
                 }
         }
-        console.log("pre : ",allRelation)
         //retirer les relation inutile
         for (let index1 = 0; index1 < allRelation.length; index1++) {
                 const relation1 = allRelation[index1];
                 for (let index2 = index1 + 1; index2 < allRelation.length; index2++) {
                         const relation2 = allRelation[index2];
-                        console.log(issubset(relation2["source"],relation1["source"]), relation1["destination"] == relation2["destination"])
-                        if ( issubset(relation2["source"],relation1["source"]) && relation1["destination"] == relation2["destination"]){
+                        if ( relation1["source"].issubsetof(relation2["source"]) && relation1["destination"] == relation2["destination"]){
                                 //delete allRelation[index2]
                                 allRelation.splice(index2, 1)
                                 index2--
@@ -182,9 +143,8 @@ table1 = [
 
 /* R : A ==> D ;
        B ==> A ; B ==> C ; B ==> D ;
-       C == 0
-       D == 0
-       AD == 0
+       AC ==> B;
+       CD ==> A ; CD ==> B
 */
 
 
@@ -196,14 +156,12 @@ table2 = [
         [2, 2, 4],
 ]
 
-/* R : A == 0 ;
-       B == 0
-       C == 0
+/* R :
        AB ==> C ;
        AC ==> B ;
        BC ==> A ;
 */
 
 console.log(findkey(head1, table1))
-
+console.log("----------------------------")
 console.log(findkey(head2, table2))
