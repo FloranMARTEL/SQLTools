@@ -1,17 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
-    <input id="test" name="file" type="file"/>
-    <button id="bb">bouton</button>
 
-    
+    <link rel="stylesheet" href="css/var.css">
+    <link rel="stylesheet" href="css/generale.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+    <main>
+        <div class="block">
+            <table class="tab-exemple">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOM</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Telephone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>MARTEL</td>
+                        <td>Floran</td>
+                        <td>floranmartel@gmail.com</td>
+                        <td>06 90 51 55 19</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>LEFEBVRE</td>
+                        <td>Sophie</td>
+                        <td>sophie.lefebvre@gmail.com</td>
+                        <td>06 12 34 56 78</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>DUPONT</td>
+                        <td>Julien</td>
+                        <td>julien.dupont@gmail.com</td>
+                        <td>06 23 45 67 89</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>GIRARD</td>
+                        <td>Emma</td>
+                        <td>emma.girard@hotmail.com</td>
+                        <td>06 34 56 78 90</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>ROUET</td>
+                        <td>Lucas</td>
+                        <td>lucas.rouet@yahoo.fr</td>
+                        <td>06 45 67 89 01</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>PERRIER</td>
+                        <td>Claire</td>
+                        <td>claire.perrier@orange.fr</td>
+                        <td>06 56 78 90 12</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>FERRAND</td>
+                        <td>Maxime</td>
+                        <td>maxime.ferrand@gmail.com</td>
+                        <td>06 67 89 01 23</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>BLANC</td>
+                        <td>Isabelle</td>
+                        <td>isabelle.blanc@free.fr</td>
+                        <td>06 78 90 12 34</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>GONZALVES</td>
+                        <td>Antonio</td>
+                        <td>antonio.gonzalves@live.fr</td>
+                        <td>06 89 01 23 45</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <p>
+                    Pour analyser votre table, fournir le fichier csv correspondant à votre table.
+                    En cliquant sur le bouton ci-dessous
+                </p>
+                <label for="csvFile">
+                    <input type="file" id="csvFile">
+                    <img src="assets/image/csv.png" alt="iconCSV">
+                    <span>Selectioner mon fichier</span>
+                </label>
+            </div>
+        </div>
+    </main>
+
+
     <script src="test.js"></script>
     <script src="readcsv.js"></script>
     <script src="mainPage.js"></script>
 </body>
+
 </html>

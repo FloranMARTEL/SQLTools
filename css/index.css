@@ -1,0 +1,50 @@
+.tab-exemple{
+    border-spacing : 0;
+}
+
+.tab-exemple th, .tab-exemple td{
+    border: 1px solid var(--greenDark);
+    text-align: center;
+    padding: 7px 16px ;
+    font-family: cursive;
+    font-size: 16px;
+}
+
+
+.tab-exemple > thead th{
+    background-color: var(--green);
+    border-width: 2px 1px 1px 1px;
+}
+
+.tab-exemple th:first-child{
+    border-top-left-radius: 24px;
+    border-width: 2px 1px 1px 2px;
+
+}
+
+.tab-exemple th:last-child{
+    border-top-right-radius: 24px;
+    border-width: 2px 2px 1px 1px;
+}
+
+.tab-exemple tr:last-child td:first-child{
+    border-bottom-left-radius: 24px;
+    border-width: 1px 1px 2px 2px;
+}
+
+.tab-exemple tr:last-child td:last-child{
+    border-bottom-right-radius: 24px;
+    border-width: 1px 2px 2px 1px;
+}
+
+.tab-exemple td:last-child{
+    border-width: 1px 2px 1px 1px;
+}
+
+.tab-exemple td:first-child{
+    border-width: 1px 1px 1px 2px;
+}
+
+.tab-exemple tr:last-child td{
+    border-width: 1px 1px 2px 1px;
+}
