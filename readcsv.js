@@ -7,11 +7,11 @@ function decodeCSV(csvtext) {
 }
 
 
-const fs = require('fs')
-fs.readFile('CSVTry.csv', (err, inputD) => {
-    if (err) throw err;
-    result = decodeCSV(inputD.toString());
-    const head = result.head
-    const table = result.table
-    console.log("resultat : ",head,table)
-})
+// const fs = require('fs')
+// fs.readFile('CSVTry.csv', (err, inputD) => {
+//     if (err) throw err;
+//     result = decodeCSV(inputD.toString());
+//     const head = result.head
+//     const table = result.table
+//     console.log("resultat : ",head,table)
+// })
