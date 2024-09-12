@@ -33,6 +33,9 @@ document.querySelector('#findrelation').addEventListener('click', () => {
     relatioMaped = groupBy(relation, (element) => element.source)
 
     const block = document.querySelector("#block-deroulant")
+    while (block.firstChild) {
+      block.removeChild(block.firstChild);
+    }
 
     const divtab = document.createElement("div")
     relatioMaped.forEach(relationGroup => {

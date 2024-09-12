@@ -10,6 +10,14 @@ header{
     
 }
 
+footer{
+    /* height: 150px;
+    background-color: var(--green);
+
+*/
+    
+}
+
 main{
     display: flex;
     flex-direction: column;
