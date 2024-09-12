@@ -1,3 +1,14 @@
+.fichier{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+
+/*tableau*/
+
 .tab-exemple{
     border-spacing : 0;
 }
@@ -7,9 +18,8 @@
     text-align: center;
     padding: 7px 16px ;
     font-family: cursive;
-    font-size: 16px;
+    font-size: 14px;
 }
-
 
 .tab-exemple > thead th{
     background-color: var(--green);
@@ -48,3 +58,77 @@
 .tab-exemple tr:last-child td{
     border-width: 1px 1px 2px 1px;
 }
+
+
+/*tableau end*/
+
+.selectfile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    border: 2px solid var(--greenDark);
+    border-radius: 24px;
+    padding: 6px 16px ;
+
+    cursor: pointer;
+    width: fit-content;
+}
+
+.selectfile input{
+    display: none;
+}
+.selectfile img{
+    width: 28px;
+    height: 28px;
+}
+
+/**/
+
+.generer-relation{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.generer-relation > div{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/**/
+.cacher{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: -webkit-fill-available;
+    z-index: -1;
+    transition: bottom  0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.relation-table{
+    display: flex;
+    flex-direction: row;
+    border: 2px solid var(--greenDark);
+    border-radius: 24px;
+}
+
+.relation-table > div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 6px;
+}
+
+.relation-table > div:not(:last-child){
+    border: 2px solid var(--greenDark);
+    border-width: 0px 2px 0px 0px;
+
+}
+
