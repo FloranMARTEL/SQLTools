@@ -4,13 +4,13 @@ console.log("start")
 function groupBy(list, keyGetter) {
   const map = new Map();
   list.forEach((item) => {
-       const key = keyGetter(item);
-       const collection = map.get(key);
-       if (!collection) {
-           map.set(key, [item]);
-       } else {
-           collection.push(item);
-       }
+    const key = keyGetter(item);
+    const collection = map.get(key);
+    if (!collection) {
+      map.set(key, [item]);
+    } else {
+      collection.push(item);
+    }
   });
   return map;
 }
@@ -28,34 +28,35 @@ document.querySelector('#findrelation').addEventListener('click', () => {
   // Closure to capture the file information.
   reader.onload = (e) => {
     result = decodeCSV(e.target.result)
-    relation = findkey(result.head,result.table)
-    console.log(relation)
-    
+    relation = findkey(result.head, result.table)
+
     relatioMaped = groupBy(relation, (element) => element.source)
-    console.log("tes",relatioMaped)
 
     const block = document.querySelector("#block-deroulant")
 
-    const div1 = document.createElement("div")
+    const divtab = document.createElement("div")
     relatioMaped.forEach(relationGroup => {
-      let divtemp = document.createElement("div")
-      relationGroup.forEach((element) =>{
-        let span =  document.createElement("span")
+      //création de la div
+      let sousdiv = document.createElement("div")
+      relationGroup.forEach((element) => {
+        //création du span
+        let span = document.createElement("span")
         let source = ""
-        element.source.forEach((e) =>{
-          console.log(e)
+        element.source.forEach((e) => {
           source += e
         })
         span.innerHTML = source + " → " + element.destination
-        divtemp.appendChild(span) 
+        sousdiv.appendChild(span)
+
       })
-      div1.appendChild(divtemp) 
+      divtab.appendChild(sousdiv)
     });
 
-    div1.classList.add("relation-table")
-    block.appendChild(div1)
+    divtab.classList.add("relation-table")
+    block.appendChild(divtab)
 
-    block.style.bottom ="-200px"
+    //décalage (#TODO calculer le décalage)
+    block.style.bottom = "-200px"
 
 
   };
