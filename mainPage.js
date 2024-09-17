@@ -38,10 +38,10 @@ findDepandaceButton.addEventListener('click', () => {
 
   // Closure to capture the file information.
   reader.onload = (e) => {
-    result = decodeCSV(e.target.result)
-    relation = findkey(result.head, result.table)
+    const result = decodeCSV(e.target.result)
+    const relation = findkey(result.head, result.table)
 
-    relatioMaped = groupBy(relation, (element) => element.source)
+    const relatioMaped = groupBy(relation, (element) => element.source)
 
     //clear block
     const block = document.querySelector("#block-deroulant")
@@ -72,10 +72,13 @@ findDepandaceButton.addEventListener('click', () => {
     divtab.classList.add("relation-table")
     block.appendChild(divtab)
 
-    //décalage (#TODO calculer le décalage)
-    block.style.bottom = "-200px"
-    parentblock = document.querySelector(".block.fichier")
-    parentblock.style.marginBottom = "200px"
+    //calcule du décalage
+    const decalage = divtab.clientHeight + 60 * 2 //( padding 60 )
+
+    //applique le décalage
+    block.style.bottom = "-"+decalage.toString()+"px"
+    const parentblock = document.querySelector(".block.fichier")
+    parentblock.style.marginBottom = decalage.toString()+"px"
 
 
   };
@@ -105,17 +108,20 @@ function hideError(){
 inputfile.addEventListener("change",() => {
   const files = inputfile.files
 
+  //plus d'un fichier
   if (files.length > 1){
     showError("il n'y a que les 1er fichier qui est pris en compte")
   }
   hideError()
 
-
+  //pas de fichier
   if (files.length == 0){
     textInputFile.innerHTML = "Selectioner mon fichier"
     findDepandaceButton.style.display = "None"
+    
   }else{
     const file = files[0]
+    //si le fichier n'est pas un csv
     if (file.type != "text/csv"){
       showError("le fichier n'est pas au format .csv")
       textInputFile.innerHTML = "Selectioner mon fichier"
