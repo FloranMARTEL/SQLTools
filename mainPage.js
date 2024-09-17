@@ -1,6 +1,7 @@
-
+"use strict"
 console.log("start")
 
+////////////////////////////////////////////////////
 function groupBy(list, keyGetter) {
   const map = new Map();
   list.forEach((item) => {
@@ -14,6 +15,9 @@ function groupBy(list, keyGetter) {
   });
   return map;
 }
+////////////////////////////////////////////////////
+
+
 //event litener
 let inputfile = document.querySelector("#csvFile")
 let findDepandaceButton = document.querySelector('#findrelation')
@@ -39,11 +43,13 @@ findDepandaceButton.addEventListener('click', () => {
 
     relatioMaped = groupBy(relation, (element) => element.source)
 
+    //clear block
     const block = document.querySelector("#block-deroulant")
     while (block.firstChild) {
       block.removeChild(block.firstChild);
     }
 
+    //create table dépendance fonctionelle
     const divtab = document.createElement("div")
     relatioMaped.forEach(relationGroup => {
       //création de la div
@@ -62,6 +68,7 @@ findDepandaceButton.addEventListener('click', () => {
       divtab.appendChild(sousdiv)
     });
 
+
     divtab.classList.add("relation-table")
     block.appendChild(divtab)
 
@@ -77,6 +84,7 @@ findDepandaceButton.addEventListener('click', () => {
   reader.readAsText(fl_file);
 
 });
+
 
 /*message d'erreur*/
 
