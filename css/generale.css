@@ -11,10 +11,10 @@ header{
 }
 
 footer{
-    /* height: 150px;
+    height: 150px;
     background-color: var(--green);
 
-*/
+
     
 }
 
@@ -44,4 +44,9 @@ button{
     cursor: pointer;
     color: var(--white);
     
+}
+
+.error-message{
+    display: none;
+    color: var(--red);
 }

@@ -14,10 +14,17 @@ function groupBy(list, keyGetter) {
   });
   return map;
 }
+//event litener
+let inputfile = document.querySelector("#csvFile")
+let findDepandaceButton = document.querySelector('#findrelation')
+
+//text
+let textInputFile = document.querySelector('#csvFile ~ span')
 
 
-document.querySelector('#findrelation').addEventListener('click', () => {
-  let inputfile = document.querySelector("#csvFile")
+
+/* event bouton dépandance fonctionnel*/
+findDepandaceButton.addEventListener('click', () => {
   let fl_files = inputfile.files; // JS FileList object
 
   // use the 1st file from the list
@@ -60,6 +67,8 @@ document.querySelector('#findrelation').addEventListener('click', () => {
 
     //décalage (#TODO calculer le décalage)
     block.style.bottom = "-200px"
+    parentblock = document.querySelector(".block.fichier")
+    parentblock.style.marginBottom = "200px"
 
 
   };
@@ -69,4 +78,46 @@ document.querySelector('#findrelation').addEventListener('click', () => {
 
 });
 
+/*message d'erreur*/
+
+const errorMessageFile = document.querySelector(".generer-relation .error-message")
+
+function showError(message){
+  errorMessageFile.innerHTML = message
+  errorMessageFile.style.display = "block"
+}
+
+function hideError(){
+  errorMessageFile.style.display = "none"
+  errorMessageFile.innerHTML = ""
+}
+
+/*selection du fichier*/
+
+inputfile.addEventListener("change",() => {
+  const files = inputfile.files
+
+  if (files.length > 1){
+    showError("il n'y a que les 1er fichier qui est pris en compte")
+  }
+  hideError()
+
+
+  if (files.length == 0){
+    textInputFile.innerHTML = "Selectioner mon fichier"
+    findDepandaceButton.style.display = "None"
+  }else{
+    const file = files[0]
+    if (file.type != "text/csv"){
+      showError("le fichier n'est pas au format .csv")
+      textInputFile.innerHTML = "Selectioner mon fichier"
+      findDepandaceButton.style.display = "None"
+      return
+    }
+    textInputFile.innerHTML = file.name
+    textInputFile.style.color = "var(--green)"
+    findDepandaceButton.style.display = "inline-block"
+  }
+  
+})
 

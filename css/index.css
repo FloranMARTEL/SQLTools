@@ -4,6 +4,9 @@
     align-items: center;
     gap: 20px;
     position: relative;
+
+    transition: margin-bottom 0.5s;
+
 }
 
 
@@ -130,5 +133,9 @@
     border: 2px solid var(--greenDark);
     border-width: 0px 2px 0px 0px;
 
+}
+
+.generer-relation button#findrelation{
+    display: none;
 }
 
