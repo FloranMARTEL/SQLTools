@@ -76,15 +76,16 @@ findDepandaceButton.addEventListener('click', () => {
     const decalage = divtab.clientHeight + 60 * 2 //( padding 60 )
 
     //applique le décalage
-    block.style.bottom = "-"+decalage.toString()+"px"
+    block.style.bottom = "-" + decalage.toString() + "px"
     const parentblock = document.querySelector(".block.fichier")
-    parentblock.style.marginBottom = decalage.toString()+"px"
+    parentblock.style.marginBottom = decalage.toString() + "px"
 
 
   };
 
   // Read the file as text.
   reader.readAsText(fl_file);
+
 
 });
 
@@ -93,45 +94,97 @@ findDepandaceButton.addEventListener('click', () => {
 
 const errorMessageFile = document.querySelector(".generer-relation .error-message")
 
-function showError(message){
+function showError(message) {
   errorMessageFile.innerHTML = message
   errorMessageFile.style.display = "block"
 }
 
-function hideError(){
+function hideError() {
   errorMessageFile.style.display = "none"
   errorMessageFile.innerHTML = ""
 }
 
 /*selection du fichier*/
 
-inputfile.addEventListener("change",() => {
+inputfile.addEventListener("change", () => {
   const files = inputfile.files
 
   //plus d'un fichier
-  if (files.length > 1){
+  if (files.length > 1) {
     showError("il n'y a que les 1er fichier qui est pris en compte")
   }
   hideError()
 
   //pas de fichier
-  if (files.length == 0){
+  if (files.length == 0) {
     textInputFile.innerHTML = "Selectioner mon fichier"
+    textInputFile.style.color = "var(--black)"
     findDepandaceButton.style.display = "None"
-    
-  }else{
+
+  } else {
     const file = files[0]
     //si le fichier n'est pas un csv
-    if (file.type != "text/csv"){
+    if (file.type != "text/csv") {
       showError("le fichier n'est pas au format .csv")
       textInputFile.innerHTML = "Selectioner mon fichier"
+      textInputFile.style.color = "var(--black)"
       findDepandaceButton.style.display = "None"
       return
     }
     textInputFile.innerHTML = file.name
     textInputFile.style.color = "var(--green)"
     findDepandaceButton.style.display = "inline-block"
+
+    let reader = new FileReader()
+
+    reader.onload = (e) => {
+      const result = decodeCSV(e.target.result)
+      updateTableau(result.head, result.table)
+    }
+
+    reader.readAsText(file);
+
+
   }
-  
+
 })
+
+/*tableau*/
+
+function updateTableau(thead, tbody) {
+
+  //clear
+  const tableau = document.querySelector("#tab-exemple")
+  while (tableau.firstChild) {
+    tableau.removeChild(tableau.firstChild);
+  }
+
+  //head
+  const theadDOM = document.createElement("thead")
+  let trDOM = document.createElement("tr")
+  thead.forEach((element) => {
+    let thDOM = document.createElement("th")
+    thDOM.innerHTML = element
+    trDOM.appendChild(thDOM)
+  })
+  theadDOM.appendChild(trDOM)
+
+
+  //body
+  const tbodyDOM = document.createElement("tbody")
+  tbody.forEach((ligne) => {
+
+    trDOM = document.createElement("tr")
+    ligne.forEach((element) => {
+      let tdDOM = document.createElement("td")
+      tdDOM.innerHTML = element
+      trDOM.appendChild(tdDOM)
+    })
+    tbodyDOM.appendChild(trDOM)
+  })
+
+
+  tableau.appendChild(theadDOM)
+  tableau.appendChild(tbodyDOM)
+}
 
