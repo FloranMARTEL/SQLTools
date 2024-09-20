@@ -56,7 +56,7 @@ export default class FindDF {
 
                 //applique le décalage
                 block.style.bottom = "-" + decalage.toString() + "px"
-                const parentblock = document.querySelector(".block.fichier")
+                const parentblock = document.querySelector(".divDeroulante")
                 parentblock.style.marginBottom = decalage.toString() + "px"
 
 
