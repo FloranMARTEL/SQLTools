@@ -1,5 +1,6 @@
 import "./lib/ExtensionSet.js"
 import "./lib/ExtensionString.js"
+import DependanceFonctionnelle from "./DependanceFonctionnelle.js"
 
 export default class Table{
 
@@ -56,7 +57,7 @@ export default class Table{
                 });
 
                 for (const indexkey in df) {
-                        alldf.push({source : setSource,destination : this.head[indexkey]})
+                        alldf.push( new DependanceFonctionnelle(setSource, this.head[indexkey]))
                 }
         }
         //retirer les df inutile
@@ -64,7 +65,7 @@ export default class Table{
                 const df1 = alldf[index1];
                 for (let index2 = index1 + 1; index2 < alldf.length; index2++) {
                         const df2 = alldf[index2];
-                        if ( df1["source"].issubsetof(df2["source"]) && df1["destination"] == df2["destination"]){
+                        if ( df1.entres.issubsetof(df2.entres) && df1.sortie == df2.sortie){
                                 //delete alldf[index2]
                                 alldf.splice(index2, 1)
                                 index2--
