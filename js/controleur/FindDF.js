@@ -20,7 +20,7 @@ export default class FindDF {
                 const table = DAOCSV.ReadTable(e.target.result)
                 const relation = table.findFonctionalDemandance()
 
-                const relatioMaped = relation.groupby((element) => element.source) //(relation, (element) => element.source)
+                const relatioMaped = relation.groupby((element) => element.entres)
 
                 //clear block
                 
@@ -37,10 +37,10 @@ export default class FindDF {
                         //création du span
                         let span = document.createElement("span")
                         let source = ""
-                        element.source.forEach((e) => {
+                        element.entres.forEach((e) => {
                             source += e
                         })
-                        span.innerHTML = source + " → " + element.destination
+                        span.innerHTML = source + " → " + element.sortie
                         sousdiv.appendChild(span)
 
                     })
