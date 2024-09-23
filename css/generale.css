@@ -46,3 +46,10 @@ button{
     display: none;
     color: var(--red);
 }
+
+
+textarea{
+    border: 2px solid var(--greenDark);
+    padding: 10px;
+    border-radius: 24px;
+}
