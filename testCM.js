@@ -29,7 +29,7 @@ Set.prototype.clearDoublonofSet = function () {
 
 
 function fermeture(elements,dependances){
-    let valeur = elements
+    let valeur = new Set([...elements])
     nbvaleur = 0
     while (nbvaleur < valeur.size) {
         nbvaleur = valeur.size
@@ -58,11 +58,6 @@ let input1 = [new DependanceFonctionnelle(new Set("A"),"F"),
     new DependanceFonctionnelle(new Set("A"),"F")
 ]
 
-console.log(fermeture(new Set("A"),input1))
-
-
-
-
 
 
 function couvertureMinimalEtape2(dependances){
@@ -72,56 +67,58 @@ function couvertureMinimalEtape2(dependances){
 
         let copyDependances = [...dependances]
 
-        let dependanceToCheck = copyDependances.splice(iDF, 1)
+        let dependanceToCheck = copyDependances.splice(iDF, 1)[0]
 
-        //faire de la récusion TODO
-        for (let indexEntre = 0; indexEntre < dependanceToCheck.entres.size ; indexEntre++) {
-
-            newEntrer = new Set([...dependanceToCheck.entres]).delete(dependanceToCheck.entres[indexEntre])
-            resultFermeture = fermeture(newEntrer,copyDependances)
+        //vérifie qu'il n'y a pas d'élement superflu
+        for (let indexEntre = 0; indexEntre < dependanceToCheck.entres.size && dependanceToCheck.entres.size != 1 ; indexEntre++) {
             
-            if new Set(dependanceToCheck.sortie).issubsetof(resultFermeture)
-
-
-
+            
+            let newEntrer = new Set([...dependanceToCheck.entres])
+            newEntrer.delete([...(dependanceToCheck.entres)][indexEntre])
+            resultFermeture = fermeture(newEntrer,copyDependances)
+            if (new Set(dependanceToCheck.sortie).issubsetof(resultFermeture)){
+                dependances[iDF].entres.delete([...(dependanceToCheck.entres)][indexEntre])
+            }
 
         }
 
-
-
-        // const source = dependance.entres
-        // if (source.size > 1){
-
-        //     for (let index = 0; index < source.size; index++) {
-
-                
-        //     }
-                
-        // }
     }
+
+    return dependances
     
 }
 
 function couvertureMinimalEtape3(dependances){
-    
-}
 
-function couvertureMinimalEtape4(dependances){
-    
+    for (let iDF = 0; iDF < dependances.length; iDF++) {
+
+        let copyDependances = [...dependances]
+
+        let dependanceToCheck = copyDependances.splice(iDF, 1)[0]
+
+        resultFermeture = fermeture(dependanceToCheck.entres,copyDependances)
+
+        if (new Set(dependanceToCheck.sortie).issubsetof(resultFermeture)){
+            dependances.splice(iDF, 1)
+            iDF--
+        }
+    }
+    return dependances
+
 }
 
 
 function couvertureMinimal(dependances){
 
-    return couvertureMinimalEtape2(dependances)
-
+    dependances = couvertureMinimalEtape2(dependances)
+    return couvertureMinimalEtape3(dependances)
 }
 
 
 let input = [new DependanceFonctionnelle(new Set("A"),"C"),
-    new DependanceFonctionnelle(new Set(["A","B"]),"C"),
+    new DependanceFonctionnelle(new Set(["A","B"]),"H"),
     new DependanceFonctionnelle(new Set("B"),"C"),
-    new DependanceFonctionnelle(new Set("A"),"C")
+    new DependanceFonctionnelle(new Set("A"),"F")
 ]
 
 let res = couvertureMinimal(input)
