@@ -8,6 +8,7 @@ import buttonfindDF from './vue/ButtonfindDF.js';
 //controleur
 import Getfiles from './controleur/Getfiles.js';
 import FindDF from './controleur/FindDF.js';
+import AlgoritmeCM from './controleur/AlgoritmeCM.js';
 
 
 
@@ -23,8 +24,15 @@ const errormessage = new ErrorMessage(".generer-relation .error-message")
 const inputfile = new InputFile("#csvFile")
 const buttonDF = new buttonfindDF("#findrelation")
 
-//event
+//input CM
+
+///event
+
+//file
 new Getfiles(inputfile,errormessage,buttonDF,tableau)
 new FindDF(buttonDF,inputfile.dom)
+
+//CM
+new AlgoritmeCM(document.querySelector("#findCM"),document.querySelector("#inputDF"),document.querySelector(".couverture-minimal > div"))
 
 //endload
