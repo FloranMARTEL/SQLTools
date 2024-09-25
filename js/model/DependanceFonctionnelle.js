@@ -34,7 +34,7 @@ export default class DependanceFonctionnelle{
     
             let copyDependances = [...dependances]
     
-            let dependanceToCheck = copyDependances.splice(iDF, 1)[0]
+            let dependanceToCheck = copyDependances[iDF]//copyDependances.splice(iDF, 1)[0]
     
             //vérifie qu'il n'y a pas d'élement superflu
             for (let indexEntre = 0; indexEntre < dependanceToCheck.entres.size && dependanceToCheck.entres.size != 1 ; indexEntre++) {
@@ -77,8 +77,12 @@ export default class DependanceFonctionnelle{
 
     static couvertureMinimal(dependances){
 
-        dependances = DependanceFonctionnelle.couvertureMinimalEtape2(dependances)
-        return DependanceFonctionnelle.couvertureMinimalEtape3(dependances)
+        const dependances2 = DependanceFonctionnelle.couvertureMinimalEtape2(dependances);
+        console.log(dependances2)
+        const dependances3 = DependanceFonctionnelle.couvertureMinimalEtape3([...dependances2]);
+        console.log(dependances2)
+
+        return {etape2 : dependances2, etape3 : dependances3}
     }
 
 }
