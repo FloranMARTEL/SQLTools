@@ -33,6 +33,6 @@ new Getfiles(inputfile,errormessage,buttonDF,tableau)
 new FindDF(buttonDF,inputfile.dom)
 
 //CM
-new AlgoritmeCM(document.querySelector("#findCM"),document.querySelector("#inputDF"),document.querySelector(".couverture-minimal > div"),"/assets/image/fleche.png")
+new AlgoritmeCM(document.querySelector("#findCM"),document.querySelector("#inputDF"),document.querySelector(".couverture-minimal > div"),"assets/image/fleche.png")
 
 //endload
