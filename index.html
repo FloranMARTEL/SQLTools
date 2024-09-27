@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="css/var.css">
     <link rel="stylesheet" href="css/generale.css">
+    <link rel="stylesheet" href="css/police.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 
@@ -46,6 +47,23 @@
             </div>
         </div>
 
+        <div class="block algoritme-cm">
+
+            <h2 class="Titre2 bloackText">Algorithme de la couverture minimale</h2>
+            <hr>
+            <div class="couverture-minimal">
+                <div>
+                    <textarea name="Dependance Fonctionnelle" id="inputDF" placeholder="A -> B&#10;A,C -> E&#10;B -> I"></textarea>
+                </div>
+                
+                <button class="greenText" id="findCM">
+                    Trouver une <br>
+                    couverture minimal
+                </button>
+            </div>
+        
+        </div>
+
     </main>
 
     <footer>
@@ -54,9 +72,6 @@
 
     <script type="module" src="js/index.js"></script>
 
-    <!-- <script src="methode.js"></script>
-    <script src="readcsv.js"></script>
-    <script src="mainPage.js"></script> -->
 </body>
 
 </html>

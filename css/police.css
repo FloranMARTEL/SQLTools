@@ -1,0 +1,12 @@
+
+.Titre2{
+    font-size: 32px;
+}
+
+.blackText{
+    color: var(--black);
+}
+
+.greenText{
+    color: var(--green);
+}
