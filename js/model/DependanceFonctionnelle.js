@@ -78,9 +78,7 @@ export default class DependanceFonctionnelle{
     static couvertureMinimal(dependances){
 
         const dependances2 = DependanceFonctionnelle.couvertureMinimalEtape2(dependances);
-        console.log(dependances2)
         const dependances3 = DependanceFonctionnelle.couvertureMinimalEtape3([...dependances2]);
-        console.log(dependances2)
 
         return {etape2 : dependances2, etape3 : dependances3}
     }

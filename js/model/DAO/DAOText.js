@@ -1,29 +1,48 @@
 import DependanceFonctionnelle from "../DependanceFonctionnelle.js";
 
-export default class DAOText{
+export default class DAOText {
 
-    static TextToDF(text){
-        
+    static TextToDF(text) {
+
         //suppresion des espaces
-        text = text.replace(/ /g,'')
+        text = text.replace(/ /g, '')
 
         const listTextDF = text.split("\n")
 
         let listDF = []
 
         listTextDF.forEach(TextDF => {
+            if (TextDF == "") {
+                return
+            }
+
             const argumentDF = TextDF.split("->")
-            
+
             //entres
-            let entres = new Set(argumentDF[0].split(","))
+            const entres = new Set(argumentDF[0].split(","))
 
-
+            for (let i = 0; i < entres.size; i++) {
+                if ([...entres][i] == "") {
+                    return
+                }
+            }
+            entres.equals(new Set(''))
 
 
             //sortie
-            const sortie = argumentDF[1]
+            const sortisplit = argumentDF[1].split(",")
+            
+            for (let i = 0; i < sortisplit.length; i++) {
+                //vérification que les sorties soit correte
+                if (sortisplit[i] == "") {
+                    return
+                }
+            }
 
-            listDF.push(new DependanceFonctionnelle(entres,sortie))
+            //ajout des dépandance
+            for (let i = 0; i < sortisplit.length; i++) {
+                listDF.push(new DependanceFonctionnelle(entres, sortisplit[i]))
+            }
         });
 
         return listDF
