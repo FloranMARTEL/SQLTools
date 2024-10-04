@@ -42,6 +42,10 @@ export default class AlgoritmeCM{
             boiteAffichage.appendChild(arrow2)
             boiteAffichage.appendChild(resultDiv)
 
+            //animation css TODO pas responsive
+            document.querySelector(".couverture-minimal>div").style.width = "742px"
+
+
         })
         
     }
