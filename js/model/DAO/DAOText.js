@@ -18,6 +18,10 @@ export default class DAOText {
 
             const argumentDF = TextDF.split("->")
 
+            if (argumentDF.length != 2) {
+                return
+            }
+
             //entres
             const entres = new Set(argumentDF[0].split(","))
 

@@ -207,6 +207,7 @@
 }
 
 .couverture-minimal>div>div>div {
+    overflow: auto;
     border: 2px solid var(--greenDark);
     background-color: var(--green);
     color: var(--greenDark);
