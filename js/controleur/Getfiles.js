@@ -31,14 +31,27 @@ export default class Getfiles {
                     return
                 }
 
-                input.updateText(file.name)
-                buttonfindDF.show()
+                
 
                 let reader = new FileReader()
 
                 reader.onload = (e) => {
-                    const table = DAOCSV.ReadTable(e.target.result)
-                    tableau.updateTableau(table.head, table.body)
+                    let update = false
+                    let table
+                    try{
+                        table = DAOCSV.ReadTable(e.target.result)
+                        update = true
+                    }
+                    catch (e){
+                        errormessage.showError(e.message)
+                        input.resetText()
+                        buttonfindDF.hide()
+                    }
+                    if (update){
+                        input.updateText(file.name)
+                        buttonfindDF.show()
+                        tableau.updateTableau(table.head, table.body)
+                    }
                 }
 
                 reader.readAsText(file);
