@@ -19,3 +19,10 @@ Set.prototype.clearDoublonofSet = function () {
     }
     return this
 }
+
+Set.prototype.difference = function (set2) {
+    let newSet = new Set();
+    this.forEach(elem => newSet.add(elem));
+    set2.forEach(elem => newSet.delete(elem));
+    return newSet;
+}

@@ -1,6 +1,34 @@
-import "./lib/ExtensionSet.js"
 
-export default class DependanceFonctionnelle{
+Set.prototype.equals = function(set) {
+    return this.size === set.size && [...this].every(val => set.has(val));
+}
+
+Set.prototype.issubsetof = function (set) {
+    return [...this].every(val => set.has(val));
+}
+
+Set.prototype.clearDoublonofSet = function () {
+    for (let index = 0; index < this.size; index++) {
+            const ensemble = [...this][index];
+            for (let index2 = index + 1; index2 < this.size; index2++) {
+                    const ensemble2 = [...this][index2];
+                    if (index != index2 && ensemble.equals(ensemble2)) {
+                            this.delete(ensemble2)
+                    }
+            }
+    }
+    return this
+}
+
+
+Set.prototype.difference = function (set2) {
+    let newSet = new Set();
+    this.forEach(elem => newSet.add(elem));
+    set2.forEach(elem => newSet.delete(elem));
+    return newSet;
+}
+
+class DependanceFonctionnelle{
     constructor(entres,sortie){
         this.entres = entres
         this.sortie = sortie
@@ -96,3 +124,55 @@ export default class DependanceFonctionnelle{
     }
 
 }
+//-------------------------------------------------
+
+
+function cleCandidate(attributs,dependances){
+    let allexit = new Set()
+    let allinput = new Set()
+    for (let iDF = 0; iDF < dependances.length; iDF++) {
+        allexit.add(dependances[iDF].sortie)
+        allinput = new Set([...allinput, ...(dependances[iDF].entres)])
+        
+    }
+
+    const elementsObligatoire = attributs.difference(allexit)
+
+    const elementsInterdi = allexit.difference(allinput)
+
+    const clecandidates = rec(attributs,dependances,elementsObligatoire,attributs.difference(elementsObligatoire).difference(elementsInterdi))
+
+    return clecandidates
+}
+
+function rec(attributs,dependances,elementsObligatoire,elements){
+
+    if (elements.size == 1){
+        return new Set([...elementsObligatoire,elem]) 
+    }
+
+    let result = []
+
+    elements.forEach(elem => {
+        const clepotensiel = [...elementsObligatoire,elem]
+        if (DependanceFonctionnelle.fermeture(clepotensiel,dependances).equals(attributs)){
+            result.push(new Set([...clepotensiel]))
+        }else{
+            result = [...result, ...(rec(attributs,dependances,new Set(clepotensiel),elements.difference(new Set(elem))))]
+        }
+    });
+
+    return result
+
+}
+
+
+const a = new Set(["A","B","C","D"])
+const a3 = new Set(["A","B","C","D","F"])
+const a4 = new Set(["A","B","C"])
+
+const d = [new DependanceFonctionnelle(new Set("A"),"B"),new DependanceFonctionnelle(new Set("B"),"C")]
+const d2 = [new DependanceFonctionnelle(new Set("A"),"B"),new DependanceFonctionnelle(new Set("B"),"C"),new DependanceFonctionnelle(new Set("B"),"A")]
+const d3 = [new DependanceFonctionnelle(new Set(["A","F"]),"B"),new DependanceFonctionnelle(new Set("B"),"C"),new DependanceFonctionnelle(new Set("B"),"A")]
+const d4 = [new DependanceFonctionnelle(new Set(["A","B"]),"C"),new DependanceFonctionnelle(new Set("C"),"B")]
+console.log(cleCandidate(a4,d4))
