@@ -5,68 +5,20 @@ import "../model/lib/ExtensionArray.js"
 export default class FindCleCandidate {
 
     constructor(button,inputfileDOM) {
-        const findkeybutton = document.querySelector("#find-key-box")
+        const findkeybutton = document.querySelector(".find-key-box");
+        const attributDom = findkeybutton.querySelector("input#attribut");
+        const DFDom = findkeybutton.querySelector("textarea#relationDF");
+        
+        console.log(button)
 
-        findkeybutton
+        button.addEventListener("click", () => {
+            
+            const attributString = attributDom.value
+            const DFString = DFDom.value
 
-        button.dom.addEventListener("click", () => {
-            let fl_files = inputfileDOM.files; // JS FileList object
+            //todo
 
-            // use the 1st file from the list
-            let fl_file = fl_files[0];
-
-            let reader = new FileReader(); // built in API
-
-            // Closure to capture the file information.
-            reader.onload = (e) => {
-                const table = DAOCSV.ReadTable(e.target.result)
-                const relation = table.findFonctionalDemandance()
-
-                const relatioMaped = relation.groupby((element) => element.entres)
-
-                //clear block
-                
-                while (block.firstChild) {
-                    block.removeChild(block.firstChild);
-                }
-
-                //create table dépendance fonctionelle
-                const divtab = document.createElement("div")
-                relatioMaped.forEach(relationGroup => {
-                    //création de la div
-                    let sousdiv = document.createElement("div")
-                    relationGroup.forEach((element) => {
-                        //création du span
-                        let span = document.createElement("span")
-                        let source = ""
-                        element.entres.forEach((e) => {
-                            source += e
-                        })
-                        span.innerHTML = source + " → " + element.sortie
-                        sousdiv.appendChild(span)
-
-                    })
-                    divtab.appendChild(sousdiv)
-                });
-
-
-                divtab.classList.add("relation-table")
-                block.appendChild(divtab)
-
-                //calcule du décalage
-                const decalage = divtab.clientHeight + 60 * 2 //( padding 60 )
-
-                //applique le décalage
-                block.style.bottom = "-" + decalage.toString() + "px"
-                const parentblock = document.querySelector(".divDeroulante")
-                parentblock.style.marginBottom = decalage.toString() + "px"
-
-
-            };
-
-            // Read the file as text.
-            reader.readAsText(fl_file);
-
+            
 
         });
     }

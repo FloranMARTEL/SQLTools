@@ -9,6 +9,7 @@ import buttonfindDF from './vue/ButtonfindDF.js';
 import Getfiles from './controleur/Getfiles.js';
 import FindDF from './controleur/FindDF.js';
 import AlgoritmeCM from './controleur/AlgoritmeCM.js';
+import FindCleCandidate from './controleur/FindCleCandidate.js';
 
 
 
@@ -34,5 +35,9 @@ new FindDF(buttonDF,inputfile.dom)
 
 //CM
 new AlgoritmeCM(document.querySelector("#findCM"),document.querySelector("#inputDF"),document.querySelector(".couverture-minimal > div > div"),"assets/image/fleche.png")
+
+// clé candidate
+
+new FindCleCandidate(document.querySelector("#find-key-candidate-button"),null)
 
 //endload
