@@ -53,3 +53,10 @@ textarea{
     padding: 10px;
     border-radius: 24px;
 }
+
+
+input[type="text"]{
+    border: 2px solid var(--greenDark);
+    border-radius: 24px;
+    padding: 6px 16px;
+}

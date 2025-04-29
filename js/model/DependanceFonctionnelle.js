@@ -84,15 +84,46 @@ export default class DependanceFonctionnelle{
     }
 
 
-    static cleCandidate(attributs,dependance){
+
+    static cleCandidate(attributs,dependances){
         let allexit = new Set()
+        let allinput = new Set()
         for (let iDF = 0; iDF < dependances.length; iDF++) {
-            allexit.add(dependances.sortie)
+            allexit.add(dependances[iDF].sortie)
+            allinput = new Set([...allinput, ...(dependances[iDF].entres)])
+            
         }
-
-        elementsObligatoire = attributs - allexit 
-
-        //todo
+    
+        const elementsObligatoire = attributs.difference(allexit)
+    
+        const elementsInterdi = allexit.difference(allinput)
+    
+        const clecandidates = _cleCandidate_recusife(attributs,dependances,elementsObligatoire,attributs.difference(elementsObligatoire).difference(elementsInterdi))
+    
+        return clecandidates
     }
+
+    static _cleCandidate_recusife(attributs,dependances,elementsObligatoire,elements){
+    
+        if (elements.size == 1){
+            return new Set([...elementsObligatoire,elem]) 
+        }
+    
+        let result = []
+    
+        elements.forEach(elem => {
+            const clepotensiel = [...elementsObligatoire,elem]
+            if (DependanceFonctionnelle.fermeture(clepotensiel,dependances).equals(attributs)){
+                result.push(new Set([...clepotensiel]))
+            }else{
+                result = [...result, ...(_cleCandidate_recusife(attributs,dependances,new Set(clepotensiel),elements.difference(new Set(elem))))]
+            }
+        });
+    
+        return result
+    
+    }
+    
+    
 
 }

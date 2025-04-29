@@ -126,7 +126,7 @@ class DependanceFonctionnelle{
 }
 //-------------------------------------------------
 
-
+/////
 function cleCandidate(attributs,dependances){
     let allexit = new Set()
     let allinput = new Set()
