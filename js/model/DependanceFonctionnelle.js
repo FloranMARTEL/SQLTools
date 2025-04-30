@@ -98,15 +98,19 @@ export default class DependanceFonctionnelle{
     
         const elementsInterdi = allexit.difference(allinput)
     
-        const clecandidates = _cleCandidate_recusife(attributs,dependances,elementsObligatoire,attributs.difference(elementsObligatoire).difference(elementsInterdi))
+        const clecandidates = DependanceFonctionnelle._cleCandidate_recusife(attributs,dependances,elementsObligatoire,attributs.difference(elementsObligatoire).difference(elementsInterdi))
     
         return clecandidates
     }
 
     static _cleCandidate_recusife(attributs,dependances,elementsObligatoire,elements){
-    
+        
+        if (elements.size == 0){
+            return [elementsObligatoire]
+        }
+
         if (elements.size == 1){
-            return new Set([...elementsObligatoire,elem]) 
+            return new Set([...elementsObligatoire,elements.values().next().value]) 
         }
     
         let result = []
