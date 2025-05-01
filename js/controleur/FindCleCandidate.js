@@ -11,7 +11,6 @@ export default class FindCleCandidate {
         const attributDom = findkeybutton.querySelector("input#attribut");
         const DFDom = findkeybutton.querySelector("textarea#relationDF");
         
-        console.log(button)
 
         button.addEventListener("click", () => {
             
@@ -21,14 +20,7 @@ export default class FindCleCandidate {
             const attributSet =  new Set(attributString.split(","))
             const listDF = DAOText.TextToDF(DFString)
 
-            console.log(attributSet)
-            console.log(listDF)
-
             const keysCandidat = DependanceFonctionnelle.cleCandidate(attributSet,listDF)
-
-            console.log("candidate",keysCandidat)
-
-
 
             this.generateRadioButton(keysCandidat)
 
@@ -38,6 +30,15 @@ export default class FindCleCandidate {
     generateRadioButton(listSetCandidate){
 
         const box = document.querySelector(".key_proposition")
+        
+
+        
+        Array.from(box.children).forEach(child => {
+            if (child.tagName === 'DIV') {
+              child.remove();
+            }
+          });
+
         let div = null
         listSetCandidate.forEach((element,index) => {
 
@@ -45,7 +46,6 @@ export default class FindCleCandidate {
             const textset = [...element].join(",")
             const id = "radioclebutton"+index
 
-            console.log(textset)
             div = document.createElement("div");
             const label = document.createElement("label");
             label.setAttribute("for",id)
@@ -59,11 +59,12 @@ export default class FindCleCandidate {
 
             div.appendChild(radioButton)
             div.appendChild(label)
+
+            box.appendChild(div)
         });
 
-        box.appendChild(div)
+        
 
-        console.log("fin")
 
     }
 

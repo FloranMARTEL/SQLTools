@@ -109,9 +109,15 @@ export default class DependanceFonctionnelle{
             return [elementsObligatoire]
         }
 
-        if (elements.size == 1){
-            return new Set([...elementsObligatoire,elements.values().next().value]) 
+        if (DependanceFonctionnelle.fermeture(elementsObligatoire,dependances).equals(attributs)){
+            return [elementsObligatoire]
         }
+
+        // if (elements.size == 1){
+        //     return new Set([...elementsObligatoire,elements.values().next().value]) 
+        // }
+
+
     
         let result = []
     
