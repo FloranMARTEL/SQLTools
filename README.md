@@ -162,7 +162,3 @@ Ce projet est open source et disponible sous licence MIT.
 ## Contributeurs
 
 - Floran MARTEL (développeur principal)
-
-## Support
-
-Pour toute question ou problème, veuillez consulter la documentation ou créer une issue sur le dépôt GitHub.
